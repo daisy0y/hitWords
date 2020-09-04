@@ -2,8 +2,8 @@
 // 출력된 문자와 동일하게 입력시 점수가 1점 올라간다.
 // 시간이 종료되면 최종기록을 로컬스토리지에 저장해서 점수 오름차순으로 볼수있게
 // 순위 리셋버튼도 만들기
-// 9AC5AAE6F6D7FE572EBA982C17430EC4
-const GAME_TIME = 5;
+
+const GAME_TIME = 30;
 let gameTime = GAME_TIME;
 let gameScore = 0;
 let statusDisplay = document.querySelector(".gameStatus");
@@ -17,6 +17,7 @@ const wordDisplay = document.querySelector(".wordDisplay");
 const timeDisplay = document.querySelector(".timerDisplay");
 const scoreDisplay = document.querySelector(".scoreDisplay");
 
+
 init();
 function init(){
     statusDisplay.classList.remove("playing");
@@ -24,7 +25,9 @@ function init(){
     timeDisplay.innerText = `${gameTime}초`
     scoreDisplay.innerText = `${gameScore}점`
     turn = true;
+    getWords();
 }
+
 
 // 타이머기능
 function timer(){
@@ -38,9 +41,10 @@ function countTime(){
          }else if(gameTime === 0 ){
             gameTime = GAME_TIME;
             clearTimer();
-            timeDisplay.innerText = `${gameTime}초`
-            buttonChange("게임시작");
             gameScore = 0 ;
+            timeDisplay.innerText = `${gameTime}초`
+            scoreDisplay.innerText = `${gameScore}점`
+            buttonChange("게임시작");
             turn = true;
             alert('게임이 종료되었습니다!');
         }
@@ -59,6 +63,8 @@ function correct(){
         gameScore++
         scoreDisplay.innerText = `${gameScore}점`
         inputWord.value = "";
+        const randomIndex = Math.floor(Math.random() * words.length);
+        wordDisplay.innerText=words[randomIndex];
     }
 }
 
@@ -84,5 +90,28 @@ function buttonChange(text){
         timer();
         turn = false;
         inputWord.focus();
+        const randomIndex = Math.floor(Math.random() * words.length);
+        wordDisplay.innerText=words[randomIndex];
+
     }
     })
+
+
+// 단어 생성
+function getWords(){
+ 
+    axios.get('https://random-word-api.herokuapp.com/word?number=300')
+      .then(function (response) {
+          response.data.forEach((word)=>{
+            if(word.length < 8 )
+            words.push(word)
+          })
+
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+
+    }
+
