@@ -3,7 +3,7 @@
 // 시간이 종료되면 최종기록을 로컬스토리지에 저장해서 점수 오름차순으로 볼수있게
 // 순위 리셋버튼도 만들기
 
-const GAME_TIME = 30;
+const GAME_TIME = 5;
 let gameTime = GAME_TIME;
 let gameScore = 0;
 let statusDisplay = document.querySelector(".gameStatus");
@@ -12,14 +12,28 @@ let timeInterval;
 let turn = true;
 let words=[];
 let lastScore= 0;
-let highScore= parseInt(localStorage.getItem('highScore'));
-
+let highScore= 0;
 const wordDisplay = document.querySelector(".wordDisplay");
 const timeDisplay = document.querySelector(".timerDisplay");
 const scoreDisplay = document.querySelector(".scoreDisplay");
 
-const rankScore = document.querySelector("#rankScore");
+const rankDisplay = document.querySelector("#rankScore");
 
+
+
+init();
+
+function init(){
+    getWords();
+    statusDisplay.classList.remove("playing");
+    statusDisplay.classList.add("gameStatus");
+    timeDisplay.innerText = `${gameTime}초`
+    scoreDisplay.innerText = `${gameScore}점`
+    turn = true;
+    inputHighScore();
+
+
+}
 // 로컬스토리지 최고 점수 저장
 function checkHigh(){
 if(lastScore > highScore){
@@ -31,25 +45,11 @@ if(lastScore > highScore){
 }
 
 function inputHighScore(){
-    if(highScore){
-    rankScore.innerText=`최고점수 : ${localStorage.getItem('highScore')}점`;
+    if(localStorage.getItem("highScore")){
+        rankDisplay.innerText=`최고점수 : ${localStorage.getItem('highScore')}점`;
     }else{
-    rankScore.innerText=`기록이 존재하지 않습니다.`
+        rankDisplay.innerText=`기록이 존재하지 않습니다.`
     }
-}
-
-
-init();
-function init(){
-    statusDisplay.classList.remove("playing");
-    statusDisplay.classList.add("gameStatus");
-    timeDisplay.innerText = `${gameTime}초`
-    scoreDisplay.innerText = `${gameScore}점`
-    turn = true;
-    getWords();
-    checkHigh();
-    inputHighScore();
-
 }
 
 
@@ -64,7 +64,8 @@ function countTime(){
         timeDisplay.innerText = `${gameTime}초`
          }else if(gameTime === 0 ){
             lastScore = gameScore;
-            checkHigh()
+             lastScore = gameScore;
+             checkHigh()
             gameTime = GAME_TIME;
             clearTimer();
             gameScore = 0 ;
