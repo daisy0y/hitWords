@@ -11,11 +11,28 @@ let inputWord = document.querySelector("#inputWord");
 let timeInterval;
 let turn = true;
 let words=[];
-
+let lastScore= 0;
+let highScore= parseInt(localStorage.getItem('highScore'));
 
 const wordDisplay = document.querySelector(".wordDisplay");
 const timeDisplay = document.querySelector(".timerDisplay");
 const scoreDisplay = document.querySelector(".scoreDisplay");
+
+const rankScore = document.querySelector("#rankScore");
+
+// 로컬스토리지 최고 점수 저장
+function checkHigh(){
+if(lastScore > highScore){
+    highScore = lastScore;
+    localStorage.setItem("highScore",highScore);
+    inputHighScore();
+
+}
+}
+
+function inputHighScore(){
+    rankScore.innerText=`최고점수 : ${localStorage.getItem('highScore')}점`;
+}
 
 
 init();
@@ -26,6 +43,9 @@ function init(){
     scoreDisplay.innerText = `${gameScore}점`
     turn = true;
     getWords();
+    checkHigh();
+    inputHighScore();
+
 }
 
 
@@ -39,6 +59,8 @@ function countTime(){
         gameTime--
         timeDisplay.innerText = `${gameTime}초`
          }else if(gameTime === 0 ){
+            lastScore = gameScore;
+            checkHigh()
             gameTime = GAME_TIME;
             clearTimer();
             gameScore = 0 ;

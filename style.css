@@ -19,8 +19,22 @@
         
     }
 
+.main-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    margin: auto;
+    padding-right: 4.5rem;
+}
+
+#rankScore{
+    margin-right: 0.3rem;
+    display: flex;
+    font-weight: bold;
+    font-size: 0.9em;
+}
     .container{
-        margin: auto;
         width: 40%;
         height: 350px;
         min-width: 180px;
@@ -112,3 +126,12 @@
         background-color: #F5F5F5;
         color: red;
     }
+
+@media screen and (min-width:500px){
+    
+#rankScore{
+    display: flex;
+    font-weight: bold;
+    font-size: 2em;
+}
+}
