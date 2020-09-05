@@ -31,7 +31,11 @@ if(lastScore > highScore){
 }
 
 function inputHighScore(){
+    if(highScore){
     rankScore.innerText=`최고점수 : ${localStorage.getItem('highScore')}점`;
+    }else{
+    rankScore.innerText=`기록이 존재하지 않습니다.`
+    }
 }
 
 
