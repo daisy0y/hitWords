@@ -27,12 +27,39 @@
     margin: auto;
     padding-right: 4.5rem;
 }
+.rankDisplay{
+    display: flex;
+    flex-direction: column;
+}
 
 #rankScore{
+    text-align: center;
     margin-right: 0.3rem;
     display: flex;
     font-weight: bold;
     font-size: 0.9em;
+}
+
+#resetRank{
+    width: 50%;
+    height: 10%;
+    align-self: center;
+    margin-top: 1rem;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 1em;
+    border: none;
+    background-color: #F5F5F5;
+    font-weight: bold;
+    color: #696969;
+    border-radius: 10px;
+    outline: none;
+    
+}
+
+#resetRank:hover{
+    opacity: 0.5;
+    background-color: #F5F5F5;
 }
     .container{
         width: 40%;
@@ -105,7 +132,7 @@
     }
     .gameStatus:hover{
         opacity: 0.5;
-        background-color: #F5F5F5	;
+        background-color: #F5F5F5;
     }
 
     .playing{
@@ -126,12 +153,3 @@
         background-color: #F5F5F5;
         color: red;
     }
-
-@media screen and (min-width:500px){
-    
-#rankScore{
-    display: flex;
-    font-weight: bold;
-    font-size: 2em;
-}
-}

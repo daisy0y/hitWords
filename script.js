@@ -1,8 +1,3 @@
-// 게임시작을 누르면 30초간 임의의 문자가 출력된다.
-// 출력된 문자와 동일하게 입력시 점수가 1점 올라간다.
-// 시간이 종료되면 최종기록을 로컬스토리지에 저장해서 점수 오름차순으로 볼수있게
-// 순위 리셋버튼도 만들기
-
 const GAME_TIME = 5;
 let gameTime = GAME_TIME;
 let gameScore = 0;
@@ -18,7 +13,7 @@ const timeDisplay = document.querySelector(".timerDisplay");
 const scoreDisplay = document.querySelector(".scoreDisplay");
 
 const rankDisplay = document.querySelector("#rankScore");
-
+const rankResetVar = document.querySelector("#resetRank");
 
 
 init();
@@ -47,10 +42,16 @@ if(lastScore > highScore){
 function inputHighScore(){
     if(localStorage.getItem("highScore")){
         rankDisplay.innerText=`최고점수 : ${localStorage.getItem('highScore')}점`;
-    }else{
-        rankDisplay.innerText=`기록이 존재하지 않습니다.`
-    }
+        }else{
+            rankDisplay.innerText=`기록이 존재하지 않습니다.`
+        }
 }
+// 로컬스토리지 삭제
+
+rankResetVar.addEventListener("click",()=>{
+    localStorage.clear();
+    rankDisplay.innerText=`기록이 존재하지 않습니다.`}
+)
 
 
 // 타이머기능
